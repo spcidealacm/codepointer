@@ -14,11 +14,11 @@
      (ln: 2, cl: 3, fl: example.c)   -->  
      (ln: 4, cl: 10, fl: exmaple.c) -->  
      ...
-  3. build you own fl (eg: example.c)
+  3. build you own files (eg: example.c)
 
 ## How to Use
 
-  1. open the fl you have created.
+  1. open the files you have created.
   2. extension will show the Tag after a few second.
 
 ## Support

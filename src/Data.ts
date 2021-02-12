@@ -1,10 +1,12 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from "fs";
+import { connected } from 'process';
 
 interface DataType {
     ln: number;
     cl: number;
+    ed: number;
     fl: string;
     // decoration?: vscode.TextEditorDecorationType;
 }
@@ -25,7 +27,7 @@ class Data {
             let subResult = [];
             while (result2 = reg2.exec(result1[0])) {
                 result3 = result2[0].replace(/:/g, " ").split(/\s+/);
-                let info: DataType = { ln: +result3[1]-1, cl: +result3[3]-1, fl: path.join(dirname, result3[5]) };
+                let info: DataType = { ln: +result3[1] - 1, cl: +result3[3] - 1, ed: +result3[3], fl: path.join(dirname, result3[5]) };
                 subResult.push(info);
             }
             result.push(subResult);
@@ -34,23 +36,49 @@ class Data {
     }
 
     static compare(editor: vscode.TextEditor) {
-        return this.compareFl(editor.document.uri.fsPath);
-    }
-
-    static compareFl(info: string) {
         let data = this.analysis();
-        let result = []; // [obj[],obj[]]
+        let result = [];
         for (let i in data) {
-            let team = []; // obj[]
+            let team = [];
             for (let j in data[i]) {
-                if (info === data[i][j]["fl"]) {
-                    // console.log(team);
-                    team.push(data[i][j]); // if info fl equal data[i][j]["fl"], team achieve it.
+                if (editor.document.uri.fsPath === data[i][j]["fl"]) {
+                    let textInfo: vscode.TextLine = editor.document.lineAt(data[i][j]["ln"]);
+                    let pos = this.compareNode(textInfo.text, data[i][j]["cl"]);
+                    data[i][j]["cl"] = pos.cl;
+                    data[i][j]["ed"] = pos.ed;
+                    team.push(data[i][j]);
                 } else {
-                    if (team.length) { result.push(team); team = []; } // if not and team has obj in, result achieve team, team clear.
+                    if (team.length) { result.push(team); team = []; }
                 }
             }
             if (team.length) { result.push(team); }
+        }
+        return result;
+    }
+
+    static compareNode(text: string, currentLine: number): { cl: number, ed: number } {
+        let result = {
+            cl: currentLine + 1,
+            ed: currentLine + 1
+        };
+        let reg = RegExp(/\w/);
+        for (let i = currentLine; i > 0; i--) {
+            let inculdeWord = reg.exec(text[i]);
+            console.log(i, inculdeWord);
+            if (inculdeWord && inculdeWord[0]) {
+                result.cl--;
+            } else {
+                break;
+            }
+        }
+        for (let i = currentLine + 1; i < text.length; i++) {
+            let inculdeWord = reg.exec(text[i]);
+            console.log(i, inculdeWord);
+            if (inculdeWord && inculdeWord[0]) {
+                result.ed++;
+            } else {
+                break;
+            }
         }
         return result;
     }

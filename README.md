@@ -1,4 +1,5 @@
 # codepointer
+<img src='https://github.com/spcidealacm/codepointer/blob/master/demo.png' width='480'/>
 
 ## How To Run
 

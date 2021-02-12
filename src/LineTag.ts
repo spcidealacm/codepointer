@@ -1,4 +1,3 @@
-import { cachedDataVersionTag } from "v8";
 import * as vscode from "vscode";
 import { Data, DataType } from "./Data";
 
@@ -11,25 +10,21 @@ interface RangeType {
 
 class Tag {
     decorationNodesData: vscode.DecorationRenderOptions = {
-        // overviewRulerColor: "rgba(255,189,42,0.8)",
         light: { border: "2px solid #666", borderRadius: "3px" },
         dark: { border: "2px solid #fff", borderRadius: "3px" }
     };
 
     decorationLinesData: vscode.DecorationRenderOptions = {
-        // overviewRulerColor: "rgba(255,189,42,0.8)",
         light: { borderColor: "#666", borderStyle: "none none none dashed", borderWidth: "2px" },
         dark: { borderColor: "#eee", borderStyle: "none none none dashed", borderWidth: "2px" }
     };
 
     decorationLinesTopData: vscode.DecorationRenderOptions = {
-        // overviewRulerColor: "rgba(255,189,42,0.8)",
         light: { borderColor: "#666", borderStyle: "dashed none none none", borderWidth: "2px" },
         dark: { borderColor: "#eee", borderStyle: "dashed none none none", borderWidth: "2px" }
     };
 
     decorationLinesBottomData: vscode.DecorationRenderOptions = {
-        // overviewRulerColor: "rgba(255,189,42,0.8)",
         light: { borderColor: "#666", borderStyle: "none none dashed none", borderWidth: "2px" },
         dark: { borderColor: "#eee", borderStyle: "none none dashed none", borderWidth: "2px" }
     };
@@ -98,7 +93,6 @@ class Tag {
                 }
             }
         }
-        console.log(result);
         return result;
     }
 }

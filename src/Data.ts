@@ -1,14 +1,12 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from "fs";
-import { connected } from 'process';
 
 interface DataType {
     ln: number;
     cl: number;
     ed: number;
     fl: string;
-    // decoration?: vscode.TextEditorDecorationType;
 }
 
 class Data {
@@ -57,28 +55,15 @@ class Data {
     }
 
     static compareNode(text: string, currentLine: number): { cl: number, ed: number } {
-        let result = {
-            cl: currentLine + 1,
-            ed: currentLine + 1
-        };
+        let result = { cl: currentLine + 1, ed: currentLine + 1 };
         let reg = RegExp(/\w/);
         for (let i = currentLine; i > 0; i--) {
             let inculdeWord = reg.exec(text[i]);
-            console.log(i, inculdeWord);
-            if (inculdeWord && inculdeWord[0]) {
-                result.cl--;
-            } else {
-                break;
-            }
+            if (inculdeWord && inculdeWord[0]) { result.cl--; } else { break; }
         }
         for (let i = currentLine + 1; i < text.length; i++) {
             let inculdeWord = reg.exec(text[i]);
-            console.log(i, inculdeWord);
-            if (inculdeWord && inculdeWord[0]) {
-                result.ed++;
-            } else {
-                break;
-            }
+            if (inculdeWord && inculdeWord[0]) { result.ed++; } else { break; }
         }
         return result;
     }

@@ -1,16 +1,25 @@
 import * as vscode from 'vscode';
-import * as path from 'path';
-import * as fs from "fs";
-import { Data } from "./Data";
+import { Tag } from "./LineTag";
 
 
 export function activate(context: vscode.ExtensionContext) {
 
-	let disposable = vscode.commands.registerCommand('codepointer.helloWorld', () => {
-		console.log(Data.analysis());
-	});
+	let tag = new Tag();
+	tag.on(vscode.window.visibleTextEditors);
+	vscode.window.onDidChangeVisibleTextEditors(
+		function(editors: vscode.TextEditor[]){
+			tag.off();
+			tag.on(editors);
+		}, null, context.subscriptions
+	);
 
-	context.subscriptions.push(disposable);
+	vscode.workspace.onDidChangeTextDocument(
+		function(doc: vscode.TextDocumentChangeEvent){
+			// doc.document.uri.fsPath;
+			tag.off();
+			tag.on(vscode.window.visibleTextEditors);
+		}
+	);
 }
 
 export function deactivate() { }

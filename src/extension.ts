@@ -7,15 +7,14 @@ export function activate(context: vscode.ExtensionContext) {
 	let tag = new Tag();
 	tag.on(vscode.window.visibleTextEditors);
 	vscode.window.onDidChangeVisibleTextEditors(
-		function(editors: vscode.TextEditor[]){
+		function (editors: vscode.TextEditor[]) {
 			tag.off();
 			tag.on(editors);
 		}, null, context.subscriptions
 	);
 
 	vscode.workspace.onDidChangeTextDocument(
-		function(doc: vscode.TextDocumentChangeEvent){
-			// doc.document.uri.fsPath;
+		function (doc: vscode.TextDocumentChangeEvent) {
 			tag.off();
 			tag.on(vscode.window.visibleTextEditors);
 		}

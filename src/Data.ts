@@ -25,7 +25,9 @@ class Data {
             let subResult = [];
             while (result2 = reg2.exec(result1[0])) {
                 result3 = result2[0].replace(/:/g, " ").split(/\s+/);
-                let info: DataType = { ln: +result3[1] - 1, cl: +result3[3] - 1, ed: +result3[3], fl: path.join(dirname, result3[5]) };
+                let line = +result3[1] - 1 < 0 ? 0 : +result3[1] - 1;
+                let cline = +result3[3] - 1 < 0 ? 0 : +result3[3] - 1;
+                let info: DataType = { ln: line, cl: cline, ed: +result3[3], fl: path.join(dirname, result3[5]) };
                 subResult.push(info);
             }
             result.push(subResult);

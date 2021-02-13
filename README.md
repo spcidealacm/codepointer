@@ -26,4 +26,4 @@
   1. It support hot update which means when you rewrite example.txt, the result will shown on real-time.
   2. Automatically recognize position words marked by key 'cl:'.
   3. Support dark and light themes.
-  4. [There is a js version show the same functions if you prefer font-end thinking.](https://github.com/spcidealacm/codepointer_js)
+  4. [There is a js(javascript) version show the same functions if you prefer font-end thinking.](https://github.com/spcidealacm/codepointer_js)

@@ -17,7 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
 		function (doc: vscode.TextDocumentChangeEvent) {
 			tag.off();
 			tag.on(vscode.window.visibleTextEditors);
-		}
+		}, null, context.subscriptions
 	);
 }
 

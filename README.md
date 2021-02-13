@@ -27,3 +27,6 @@
   2. Automatically recognize position words marked by key 'cl:'.
   3. Support dark and light themes.
   4. [There is a js(javascript) version show the same functions if you prefer font-end thinking.](https://github.com/spcidealacm/codepointer_js)
+
+## About Build You Own Vscode Extension
+  1. If you are a fresh man in coding a vscode extension, please check the [official documents](https://code.visualstudio.com/api/get-started/your-first-extension) to get a preliminary understanding.
